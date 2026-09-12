@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% block title %}Disease Detection — CropGuard AI{% endblock %}
+
+{% block content %}
+<section class="detect-page">
+    <div class="page-header">
+        <span class="section-tag">AI Detection</span>
+        <h1 class="page-title">Crop Disease Scanner</h1>
+        <p class="page-sub">Upload a clear photo of your plant leaf for instant AI diagnosis</p>
+    </div>
+
+    <div class="detect-layout">
+        <!-- Upload Panel -->
+        <div class="upload-panel glass-card">
+            <form class="upload-form" action="/predict-ui" method="post" enctype="multipart/form-data" id="detectForm">
+                
+                <div class="drop-zone" id="dropZone" onclick="document.getElementById('file-input').click()">
+                    <div class="drop-inner" id="dropInner">
+                        <div class="drop-icon">📁</div>
+                        <p class="drop-title">Drop your leaf image here</p>
+                        <p class="drop-hint">or click to browse files</p>
+                        <span class="drop-formats">JPG, PNG, WEBP supported</span>
+                    </div>
+                    <div class="preview-container" id="previewContainer" style="display:none;">
+                        <img id="previewImg" src="" alt="Preview">
+                        <button type="button" class="remove-img" id="removeImg">✕</button>
+                    </div>
+                    <input type="file" name="image" id="file-input" accept="image/*" required hidden>
+                </div>
+
+                <div class="tips-row">
+                    <div class="tip">✓ Use natural lighting</div>
+                    <div class="tip">✓ Focus on affected area</div>
+                    <div class="tip">✓ Avoid blurry images</div>
+                </div>
+
+                <button type="submit" class="btn-primary btn-full" id="predictBtn">
+                    <span id="btnText">Analyze with AI</span>
+                    <div class="btn-spinner" id="btnSpinner" style="display:none;"></div>
+                </button>
+
+            </form>
+        </div>
+
+        <!-- Results Panel -->
+        <div class="results-panel">
+
+            {% if result %}
+            <div class="result-card glass-card {% if 'Invalid' in result.disease %}result-invalid{% elif result.risk_analysis.risk_level == 'High' %}result-high{% elif result.risk_analysis.risk_level == 'Medium' %}result-medium{% else %}result-low{% endif %}">
+                
+                <div class="result-header">
+                    <h2>Detection Result</h2>
+                    <span class="risk-badge risk-{{ result.risk_analysis.risk_level | lower }}">
+                        {{ result.risk_analysis.risk_level }} Risk
+                    </span>
+                </div>
+
+                {% if image_path %}
+                <div class="analyzed-image">
+                    <img src="/{{ image_path }}" alt="Analyzed plant">
+                    <div class="img-overlay">
+                        <span>Analyzed ✓</span>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="result-disease">
+                    <span class="disease-label">Detected Disease</span>
+                    <span class="disease-name">{{ result.disease }}</span>
+                </div>
+
+                <div class="confidence-bar-wrap">
+                    <div class="conf-header">
+                        <span>Confidence Score</span>
+                        <span class="conf-value">{{ result.confidence }}%</span>
+                    </div>
+                    <div class="conf-bar">
+                        <div class="conf-fill {% if result.confidence >= 80 %}conf-high{% elif result.confidence >= 60 %}conf-med{% else %}conf-low{% endif %}" 
+                             style="width: {{ result.confidence }}%"></div>
+                    </div>
+                </div>
+
+                <div class="result-details-grid">
+                    <div class="detail-item">
+                        <span class="detail-icon">⚠️</span>
+                        <div>
+                            <span class="detail-key">Risk Level</span>
+                            <span class="detail-val">{{ result.risk_analysis.risk_level }}</span>
+                        </div>
+                    </div>
+                    {% if result.risk_analysis.severity %}
+                    <div class="detail-item">
+                        <span class="detail-icon">📊</span>
+                        <div>
+                            <span class="detail-key">Severity</span>
+                            <span class="detail-val">{{ result.risk_analysis.severity }}</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="recommendation-box">
+                    <h4>💊 Recommendation</h4>
+                    <p>{{ result.risk_analysis.recommendation }}</p>
+                </div>
+
+                {% if result.risk_analysis.treatment and result.risk_analysis.treatment != 'N/A' %}
+                <div class="treatment-box">
+                    <h4>🌿 Treatment</h4>
+                    <p>{{ result.risk_analysis.treatment }}</p>
+                </div>
+                {% endif %}
+
+                <div class="result-actions">
+                    <a href="/detect" class="btn-ghost btn-sm">Scan Another</a>
+                    <a href="/diseases" class="btn-primary btn-sm">Learn More</a>
+                </div>
+
+            </div>
+
+            {% else %}
+            <div class="empty-result glass-card">
+                <div class="empty-icon">🔬</div>
+                <h3>Ready to Analyze</h3>
+                <p>Upload a leaf image on the left and click "Analyze with AI" to get your disease diagnosis</p>
+                <div class="sample-diseases">
+                    <p class="sample-title">Can Detect:</p>
+                    <div class="disease-tags">
+                        <span class="tag">Septoria Leaf Spot</span>
+                        <span class="tag">Early Blight</span>
+                        <span class="tag">Late Blight</span>
+                        <span class="tag">Mosaic Virus</span>
+                        <span class="tag">Yellow Leaf Curl</span>
+                        <span class="tag">+ more</span>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('file-input');
+const previewContainer = document.getElementById('previewContainer');
+const dropInner = document.getElementById('dropInner');
+const previewImg = document.getElementById('previewImg');
+const removeImg = document.getElementById('removeImg');
+const predictBtn = document.getElementById('predictBtn');
+const btnText = document.getElementById('btnText');
+const btnSpinner = document.getElementById('btnSpinner');
+
+fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) showPreview(file);
+});
+
+dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file) { fileInput.files = e.dataTransfer.files; showPreview(file); }
+});
+
+function showPreview(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        previewImg.src = e.target.result;
+        dropInner.style.display = 'none';
+        previewContainer.style.display = 'flex';
+    };
+    reader.readAsDataURL(file);
+}
+
+removeImg.addEventListener('click', (e) => {
+    e.stopPropagation();
+    fileInput.value = '';
+    previewContainer.style.display = 'none';
+    dropInner.style.display = 'flex';
+});
+
+document.getElementById('detectForm').addEventListener('submit', () => {
+    btnText.style.display = 'none';
+    btnSpinner.style.display = 'block';
+    predictBtn.disabled = true;
+    predictBtn.style.opacity = '0.8';
+});
+</script>
+{% endblock %}

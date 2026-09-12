@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CropGuard AI{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- Ambient background -->
+<div class="ambient-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grain"></div>
+</div>
+
+<!-- Navigation -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="/" class="nav-logo">
+            <span class="logo-icon">🌱</span>
+            <span class="logo-text">CropGuard<span class="logo-accent">AI</span></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="/" class="nav-link {% if request.endpoint == 'home' %}active{% endif %}">Home</a></li>
+            <li><a href="/detect" class="nav-link {% if request.endpoint == 'detect' %}active{% endif %}">Detect</a></li>
+            <li><a href="/dashboard" class="nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}">Dashboard</a></li>
+            <li><a href="/diseases" class="nav-link {% if request.endpoint == 'diseases' %}active{% endif %}">Diseases</a></li>
+            <li><a href="/about" class="nav-link {% if request.endpoint == 'about' %}active{% endif %}">About</a></li>
+        </ul>
+        <a href="/detect" class="nav-cta">Scan Crop →</a>
+        <button class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/detect">Detect</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/diseases">Diseases</a></li>
+        <li><a href="/about">About</a></li>
+    </ul>
+</div>
+
+{% block content %}{% endblock %}
+
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <span class="logo-icon">🌱</span>
+            <span class="logo-text">CropGuard<span class="logo-accent">AI</span></span>
+            <p>Protecting crops with the power of AI</p>
+        </div>
+        <div class="footer-links">
+            <a href="/detect">Disease Detection</a>
+            <a href="/dashboard">Analytics</a>
+            <a href="/diseases">Disease Library</a>
+            <a href="/about">About</a>
+        </div>
+        <div class="footer-note">
+            <p>Built with YOLO + MobileNet + Flask</p>
+            <p>© 2025 CropGuard AI</p>
+        </div>
+    </div>
+</footer>
+
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+{% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Tomato Disease Analysis</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f7f3;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #16852b;
+        }
+
+        h2 {
+            color: #16852b;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        .prediction {
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .prediction img {
+            width: 400px;
+            max-width: 100%;
+            border-radius: 12px;
+        }
+
+        .disease {
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .confidence {
+            font-size: 20px;
+            margin: 10px;
+        }
+
+        .agent {
+            background: #f8faf8;
+            padding: 25px;
+            border-radius: 12px;
+            line-height: 1.7;
+        }
+
+        .sources {
+            margin-top: 30px;
+        }
+
+        .source {
+            padding: 12px;
+            margin: 10px 0;
+            background: #f4f4f4;
+            border-radius: 8px;
+        }
+
+        .source a {
+            color: #16852b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 5px;
+            background: #16852b;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <h1>🌱 Tomato Disease AI Analysis</h1>
+
+
+    <!-- =============================== -->
+    <!-- YOLO PREDICTION -->
+    <!-- =============================== -->
+
+    <div class="prediction">
+
+        <img src="{{ image_path }}" alt="Uploaded tomato leaf">
+
+        <div class="disease">
+            {{ disease }}
+        </div>
+
+        <div class="confidence">
+            Confidence: <strong>{{ confidence }}%</strong>
+        </div>
+
+    </div>
+
+
+    <!-- =============================== -->
+    <!-- AI AGENT -->
+    <!-- =============================== -->
+
+    <h2>🤖 AI Agricultural Agent</h2>
+
+    <div class="agent">
+
+        {{ agent_answer | replace('\n', '<br>') | safe }}
+
+    </div>
+
+
+    <!-- =============================== -->
+    <!-- SOURCES -->
+    <!-- =============================== -->
+
+    {% if sources %}
+
+    <div class="sources">
+
+        <h2>📚 Research Sources</h2>
+
+        {% for source in sources %}
+
+        <div class="source">
+
+            <a href="{{ source.url }}" target="_blank">
+                {{ source.title }}
+            </a>
+
+            <br>
+
+            <small>
+                {{ source.url }}
+            </small>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- =============================== -->
+    <!-- BUTTONS -->
+    <!-- =============================== -->
+
+    <div class="buttons">
+
+        <a href="/detect" class="button">
+            🔄 Predict Another Image
+        </a>
+
+        <a href="/" class="button">
+            🏠 Home
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

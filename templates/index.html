@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block title %}CropGuard AI — Smart Crop Disease Detection{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="badge-dot"></span>
+            AI-Powered Agriculture
+        </div>
+        <h1 class="hero-title">
+            Detect Crop<br>
+            Diseases <span class="title-accent">Instantly</span>
+        </h1>
+        <p class="hero-subtitle">
+            Upload a photo of your plant and get instant AI-powered disease diagnosis using advanced YOLO & MobileNet models — trained on thousands of plant disease images.
+        </p>
+        <div class="hero-actions">
+            <a href="/detect" class="btn-primary">
+                <span>Scan Your Crop</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="/diseases" class="btn-ghost">View Disease Library</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-number">10+</span>
+                <span class="stat-label">Diseases Detected</span>
+            </div>
+            <div class="stat-div"></div>
+            <div class="stat">
+                <span class="stat-number">95%</span>
+                <span class="stat-label">Accuracy Rate</span>
+            </div>
+            <div class="stat-div"></div>
+            <div class="stat">
+                <span class="stat-number">&lt;3s</span>
+                <span class="stat-label">Detection Time</span>
+            </div>
+        </div>
+    </div>
+    <div class="hero-visual">
+        <div class="hero-card glass-card">
+            <div class="scan-animation">
+                <div class="scan-frame">
+                    <div class="corner tl"></div>
+                    <div class="corner tr"></div>
+                    <div class="corner bl"></div>
+                    <div class="corner br"></div>
+                    <div class="scan-line"></div>
+                    <div class="scan-plant">🍃</div>
+                </div>
+            </div>
+            <div class="hero-result-preview">
+                <div class="result-row">
+                    <span class="result-label">Status</span>
+                    <span class="result-val healthy">Analyzing...</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Confidence</span>
+                    <div class="mini-bar"><div class="mini-bar-fill" style="width: 97%"></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="floating-pill pill-1 glass-card">🔬 YOLO v11</div>
+        <div class="floating-pill pill-2 glass-card">🧠 MobileNet</div>
+        <div class="floating-pill pill-3 glass-card">⚡ Real-time</div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="section-header">
+        <span class="section-tag">Why CropGuard AI</span>
+        <h2 class="section-title">Built for Modern Farmers</h2>
+        <p class="section-sub">Advanced AI meets agricultural expertise in a tool anyone can use</p>
+    </div>
+    <div class="features-grid">
+        <div class="feature-card glass-card" data-delay="0">
+            <div class="feature-icon">🔍</div>
+            <h3>Dual-Model Detection</h3>
+            <p>MobileNet first validates the leaf, then YOLO classifies the disease. Two-stage pipeline for maximum accuracy.</p>
+        </div>
+        <div class="feature-card glass-card" data-delay="100">
+            <div class="feature-icon">⚡</div>
+            <h3>Instant Results</h3>
+            <p>Get disease name, confidence score, risk level, and treatment recommendations in under 3 seconds.</p>
+        </div>
+        <div class="feature-card glass-card" data-delay="200">
+            <div class="feature-icon">🛡️</div>
+            <h3>Risk Analysis</h3>
+            <p>Every prediction includes a risk severity score and actionable treatment plan tailored to the disease.</p>
+        </div>
+        <div class="feature-card glass-card" data-delay="300">
+            <div class="feature-icon">📊</div>
+            <h3>Analytics Dashboard</h3>
+            <p>Track scan history, disease frequency, confidence trends, and regional outbreak patterns over time.</p>
+        </div>
+        <div class="feature-card glass-card" data-delay="400">
+            <div class="feature-icon">🌿</div>
+            <h3>Tomato Specialist</h3>
+            <p>Optimized for tomato crops with deep training on Septoria leaf spot, blight, mosaic virus, and more.</p>
+        </div>
+        <div class="feature-card glass-card" data-delay="500">
+            <div class="feature-icon">📱</div>
+            <h3>Works Everywhere</h3>
+            <p>Fully responsive design works on phones, tablets, and desktops — scan right from your field.</p>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="how-section">
+    <div class="section-header">
+        <span class="section-tag">Process</span>
+        <h2 class="section-title">How It Works</h2>
+    </div>
+    <div class="steps-row">
+        <div class="step glass-card">
+            <div class="step-num">01</div>
+            <div class="step-icon">📸</div>
+            <h3>Upload Image</h3>
+            <p>Take a photo of the affected leaf and upload it to the detection page</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step glass-card">
+            <div class="step-num">02</div>
+            <div class="step-icon">🧠</div>
+            <h3>AI Analysis</h3>
+            <p>MobileNet validates the leaf, YOLO identifies the disease with confidence score</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step glass-card">
+            <div class="step-num">03</div>
+            <div class="step-icon">📋</div>
+            <h3>Get Results</h3>
+            <p>Receive disease diagnosis, risk level, and detailed treatment recommendations</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="cta-card glass-card">
+        <div class="cta-glow"></div>
+        <h2>Start Protecting Your Crops Today</h2>
+        <p>Upload your first image for free — no signup required</p>
+        <a href="/detect" class="btn-primary btn-large">
+            <span>Launch Detection Tool</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+    </div>
+</section>
+{% endblock %}

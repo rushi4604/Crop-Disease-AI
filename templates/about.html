@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+{% block title %}About — CropGuard AI{% endblock %}
+
+{% block content %}
+<section class="about-page">
+    <div class="page-header">
+        <span class="section-tag">About the Project</span>
+        <h1 class="page-title">How CropGuard AI Works</h1>
+        <p class="page-sub">A deep dive into the AI models, architecture, and technology powering this system</p>
+    </div>
+
+    <!-- Architecture Overview -->
+    <div class="arch-section">
+        <div class="arch-pipeline glass-card">
+            <h3 class="arch-title">Detection Pipeline</h3>
+            <div class="pipeline-steps">
+                <div class="pipe-step">
+                    <div class="pipe-icon">📸</div>
+                    <div class="pipe-label">Image Upload</div>
+                    <div class="pipe-sub">JPG / PNG / WEBP</div>
+                </div>
+                <div class="pipe-arrow">→</div>
+                <div class="pipe-step pipe-highlight">
+                    <div class="pipe-icon">🧠</div>
+                    <div class="pipe-label">MobileNet V2</div>
+                    <div class="pipe-sub">Leaf Validation</div>
+                </div>
+                <div class="pipe-arrow">→</div>
+                <div class="pipe-step pipe-highlight">
+                    <div class="pipe-icon">🔥</div>
+                    <div class="pipe-label">YOLO v11</div>
+                    <div class="pipe-sub">Disease Classification</div>
+                </div>
+                <div class="pipe-arrow">→</div>
+                <div class="pipe-step">
+                    <div class="pipe-icon">📊</div>
+                    <div class="pipe-label">Risk Analysis</div>
+                    <div class="pipe-sub">Recommendations</div>
+                </div>
+                <div class="pipe-arrow">→</div>
+                <div class="pipe-step">
+                    <div class="pipe-icon">✅</div>
+                    <div class="pipe-label">Results</div>
+                    <div class="pipe-sub">Disease + Treatment</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model Cards -->
+    <div class="section-header">
+        <span class="section-tag">AI Models</span>
+        <h2 class="section-title">The Technology Stack</h2>
+    </div>
+
+    <div class="model-grid">
+        <!-- MobileNet Card -->
+        <div class="model-card glass-card">
+            <div class="model-badge">Stage 1</div>
+            <div class="model-icon-wrap">
+                <span class="model-icon">🧠</span>
+            </div>
+            <h3>MobileNet V2</h3>
+            <p class="model-role">Leaf Validator & Gatekeeper</p>
+            <div class="model-desc">
+                <p>The first layer of defense. MobileNet V2 analyzes every uploaded image and classifies it as either a <strong>leaf</strong> or <strong>non-leaf</strong> before allowing it through to YOLO.</p>
+                <p>This prevents false predictions on random images — if someone uploads a car photo, MobileNet rejects it immediately.</p>
+            </div>
+            <div class="model-specs">
+                <div class="spec-item">
+                    <span class="spec-key">Architecture</span>
+                    <span class="spec-val">MobileNet V2 (pretrained ImageNet)</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-key">Input Size</span>
+                    <span class="spec-val">224 × 224 px</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-key">Classes</span>
+                    <span class="spec-val">leaf / non_leaf</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-key">Threshold</span>
+                    <span class="spec-val">≥ 70% confidence to pass</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-key">Framework</span>
+                    <span class="spec-val">PyTorch + torchvision</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- YOLO Card -->
+        <div class="model-card glass-card">
+            <div class="model-badge">Stage 2</div>
+            <div class="model-icon-wrap">
+                <span class="model-icon">🔥</span>
+            </div>
+            <h3>YOLO v11</h3>
+            <p class="model-role">Disease Classifier</p>
+            <div class="model-desc">
+                <p>The core detection engine. YOLOv8 (You Only Look Once) is used in <strong>classification mode</strong> to identify which tomato disease is present in the leaf image.</p>
+                <p>Trained on the PlantVillage dataset with tomato disease classes. Returns the top-1 disease prediction with confidence score.</p>
+            </div>
+            <div class="model-specs">
+                <div class="spec-item">
+                    <span class="spec-key">Architecture</span>
+                    <span class="spec-val">YOLOv11 Classify</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-key">Dataset</span>
+                    <span class="spec-val">PlantVillage (Tomato)</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-key">Classes</span>
+                    <span class="spec-val">10 disease + healthy</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-key">Output</span>
+                    <span class="spec-val">Top-1 class + confidence %</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-key">Framework</span>
+                    <span class="spec-val">Ultralytics</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flask Card -->
+        <div class="model-card glass-card">
+            <div class="model-badge">Backend</div>
+            <div class="model-icon-wrap">
+                <span class="model-icon">🐍</span>
+            </div>
+            <h3>Flask</h3>
+            <p class="model-role">Web Server & API Layer</p>
+            <div class="model-desc">
+                <p>Flask serves as the lightweight Python web framework that ties everything together — handling image uploads, running both AI models, and rendering results back to the user.</p>
+                <p>The <code>risk_analysis.py</code> module maps disease predictions to risk levels and treatment recommendations.</p>
+            </div>
+            <div class="model-specs">
+                <div class="spec-item">
+                    <span class="spec-key">Framework</span>
+                    <span class="spec-val">Flask (Python)</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-key">Template Engine</span>
+                    <span class="spec-val">Jinja2</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-key">Routes</span>
+                    <span class="spec-val">/ and /predict-ui</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-key">File Storage</span>
+                    <span class="spec-val">static/uploads/</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-key">Mode</span>
+                    <span class="spec-val">Development (debug=True)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Current Scope -->
+    <div class="scope-section">
+        <div class="scope-card glass-card">
+            <div class="scope-icon">🍅</div>
+            <div class="scope-content">
+                <h3>Current Scope: Tomato Dataset</h3>
+                <p>The current version is trained exclusively on <strong>tomato crops</strong> from the PlantVillage dataset. The AI can recognize 10 tomato diseases plus healthy plant states.</p>
+                <div class="scope-tags">
+                    <span class="tag">Tomato - Bacterial Spot</span>
+                    <span class="tag">Tomato - Early Blight</span>
+                    <span class="tag">Tomato - Late Blight</span>
+                    <span class="tag">Tomato - Leaf Mold</span>
+                    <span class="tag">Tomato - Septoria Leaf Spot</span>
+                    <span class="tag">Tomato - Spider Mites</span>
+                    <span class="tag">Tomato - Target Spot</span>
+                    <span class="tag">Tomato - Mosaic Virus</span>
+                    <span class="tag">Tomato - Yellow Leaf Curl</span>
+                    <span class="tag">Tomato - Healthy</span>
+                </div>
+            </div>
+        </div>
+        <div class="scope-card glass-card roadmap">
+            <div class="scope-icon">🗺️</div>
+            <div class="scope-content">
+                <h3>Future Roadmap</h3>
+                <div class="roadmap-items">
+                    <div class="roadmap-item">
+                        <span class="roadmap-dot done"></span>
+                        <span>Tomato disease detection (v1.0)</span>
+                    </div>
+                    <div class="roadmap-item">
+                        <span class="roadmap-dot active"></span>
+                        <span>Multi-page UI with dashboard</span>
+                    </div>
+                    <div class="roadmap-item">
+                        <span class="roadmap-dot pending"></span>
+                        <span>Potato & pepper crop support</span>
+                    </div>
+                    <div class="roadmap-item">
+                        <span class="roadmap-dot pending"></span>
+                        <span>Scan history & user accounts</span>
+                    </div>
+                    <div class="roadmap-item">
+                        <span class="roadmap-dot pending"></span>
+                        <span>Mobile app (Android/iOS)</span>
+                    </div>
+                    <div class="roadmap-item">
+                        <span class="roadmap-dot pending"></span>
+                        <span>REST API for third-party integrations</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

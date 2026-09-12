@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard — CropGuard AI</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(0, 100, 60, 0.25),
+                    transparent 35%
+                ),
+                #050b0d;
+
+            color: #ffffff;
+
+            min-height: 100vh;
+
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        nav {
+
+            height: 70px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            background: #070d0f;
+
+            border-bottom: 1px solid #172326;
+
+        }
+
+
+        .logo {
+
+            font-size: 20px;
+
+            font-weight: bold;
+
+        }
+
+
+        .logo span {
+
+            color: #21d86b;
+
+        }
+
+
+        .logo-icon {
+
+            margin-right: 8px;
+
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 30px;
+
+            align-items: center;
+
+        }
+
+
+        .nav-links a {
+
+            color: #929b9e;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+        }
+
+
+        .nav-links a:hover {
+
+            color: #ffffff;
+
+        }
+
+
+        .nav-links .active {
+
+            color: #21d86b;
+
+            background: #15201e;
+
+            padding: 10px 15px;
+
+            border-radius: 8px;
+
+        }
+
+
+        .scan-btn {
+
+            background: #20d46a;
+
+            color: #031108;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .container {
+
+            width: 90%;
+
+            max-width: 1100px;
+
+            margin: 35px auto 60px auto;
+
+        }
+
+
+        .page-title {
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .subtitle {
+
+            color: #7e898c;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        /* =====================================================
+           STAT CARDS
+        ===================================================== */
+
+        .stats-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .stat-card {
+
+            background: #0c1517;
+
+            border: 1px solid #1d2b2e;
+
+            border-radius: 14px;
+
+            padding: 22px;
+
+        }
+
+
+        .stat-title {
+
+            color: #7f898c;
+
+            font-size: 13px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .stat-value {
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+        }
+
+
+        .green {
+
+            color: #20d46a;
+
+        }
+
+
+        .red {
+
+            color: #ff4b4b;
+
+        }
+
+
+        /* =====================================================
+           CARD
+        ===================================================== */
+
+        .card {
+
+            background: #0b1416;
+
+            border: 1px solid #1d2b2e;
+
+            border-radius: 16px;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .card-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .card-title {
+
+            font-size: 19px;
+
+            font-weight: bold;
+
+        }
+
+
+        .small-text {
+
+            color: #7d888b;
+
+            font-size: 13px;
+
+        }
+
+
+        /* =====================================================
+           DISEASE FREQUENCY
+        ===================================================== */
+
+        .frequency-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 14px 0;
+
+            border-bottom: 1px solid #182426;
+
+        }
+
+
+        .frequency-row:last-child {
+
+            border-bottom: none;
+
+        }
+
+
+        .frequency-name {
+
+            color: #dce3e4;
+
+        }
+
+
+        .frequency-count {
+
+            color: #20d46a;
+
+            font-weight: bold;
+
+        }
+
+
+        /* =====================================================
+           WEEKLY ACTIVITY
+        ===================================================== */
+
+        .chart {
+
+            height: 250px;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: space-around;
+
+            gap: 15px;
+
+            padding: 20px 10px 0;
+
+            border-bottom: 1px solid #263337;
+
+        }
+
+
+        .day {
+
+            flex: 1;
+
+            height: 100%;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: center;
+
+            gap: 5px;
+
+        }
+
+
+        .bar {
+
+            width: 25px;
+
+            min-height: 2px;
+
+            border-radius: 5px 5px 0 0;
+
+            transition: height 0.4s;
+
+        }
+
+
+        .total-bar {
+
+            background: #20d46a;
+
+        }
+
+
+        .disease-bar {
+
+            background: #c83d43;
+
+        }
+
+
+        .day-label {
+
+            text-align: center;
+
+            margin-top: 10px;
+
+            color: #879194;
+
+            font-size: 12px;
+
+        }
+
+
+        .chart-labels {
+
+            display: flex;
+
+            justify-content: space-around;
+
+        }
+
+
+        .legend {
+
+            display: flex;
+
+            gap: 20px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .legend-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            color: #8b9597;
+
+            font-size: 13px;
+
+        }
+
+
+        .dot {
+
+            width: 8px;
+
+            height: 8px;
+
+            border-radius: 50%;
+
+        }
+
+
+        .green-dot {
+
+            background: #20d46a;
+
+        }
+
+
+        .red-dot {
+
+            background: #ff4b4b;
+
+        }
+
+
+        /* =====================================================
+           TABLE
+        ===================================================== */
+
+        .table-wrapper {
+
+            overflow-x: auto;
+
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+        }
+
+
+        th {
+
+            text-align: left;
+
+            color: #687376;
+
+            font-size: 12px;
+
+            padding: 15px 10px;
+
+            border-bottom: 1px solid #243033;
+
+        }
+
+
+        td {
+
+            padding: 17px 10px;
+
+            border-bottom: 1px solid #182426;
+
+            color: #dce3e4;
+
+            font-size: 14px;
+
+        }
+
+
+        tr:last-child td {
+
+            border-bottom: none;
+
+        }
+
+
+        .confidence-container {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+        .confidence-bar {
+
+            width: 55px;
+
+            height: 5px;
+
+            background: #1d292b;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+        }
+
+
+        .confidence-fill {
+
+            height: 100%;
+
+            background: #20d46a;
+
+        }
+
+
+        .risk {
+
+            display: inline-block;
+
+            padding: 5px 12px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+        }
+
+
+        .risk-high {
+
+            color: #ff5353;
+
+            border: 1px solid #853333;
+
+            background: #261214;
+
+        }
+
+
+        .risk-medium {
+
+            color: #ff9e28;
+
+            border: 1px solid #8b5119;
+
+            background: #281c0e;
+
+        }
+
+
+        .risk-low {
+
+            color: #20d46a;
+
+            border: 1px solid #1b7540;
+
+            background: #10251a;
+
+        }
+
+
+        .risk-none {
+
+            color: #9da6a8;
+
+            border: 1px solid #394346;
+
+            background: #171d1f;
+
+        }
+
+
+        .risk-unknown {
+
+            color: #9da6a8;
+
+            border: 1px solid #394346;
+
+            background: #171d1f;
+
+        }
+
+
+        .empty {
+
+            text-align: center;
+
+            padding: 40px;
+
+            color: #7d888b;
+
+        }
+
+
+        .new-scan {
+
+            color: #ffffff;
+
+            text-decoration: none;
+
+            border: 1px solid #344144;
+
+            padding: 10px 15px;
+
+            border-radius: 8px;
+
+        }
+
+
+        .new-scan:hover {
+
+            border-color: #20d46a;
+
+            color: #20d46a;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .stats-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+            .nav-links {
+
+                gap: 10px;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .stats-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            nav {
+
+                padding: 0 20px;
+
+            }
+
+            .nav-links {
+
+                display: none;
+
+            }
+
+            .container {
+
+                width: 94%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav>
+
+    <div class="logo">
+
+        <span class="logo-icon">🌱</span>
+
+        CropGuard<span>AI</span>
+
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="/">Home</a>
+
+        <a href="/detect">Detect</a>
+
+        <a href="/dashboard"
+           class="active">
+            Dashboard
+        </a>
+
+        <a href="/diseases">Diseases</a>
+
+        <a href="/about">About</a>
+
+    </div>
+
+
+    <a href="/detect"
+       class="scan-btn">
+
+        Scan Crop →
+
+    </a>
+
+</nav>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="container">
+
+
+    <h1 class="page-title">
+        Dashboard
+    </h1>
+
+
+    <p class="subtitle">
+        Real-time crop disease monitoring and detection history
+    </p>
+
+
+
+    <!-- =================================================
+         STATISTICS
+    ================================================= -->
+
+    <div class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                TOTAL SCANS
+            </div>
+
+            <div class="stat-value">
+                {{ stats.total_scans }}
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                DISEASES DETECTED
+            </div>
+
+            <div class="stat-value red">
+                {{ stats.diseases_detected }}
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                HEALTHY PLANTS
+            </div>
+
+            <div class="stat-value green">
+                {{ stats.healthy_count }}
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                AVG. CONFIDENCE
+            </div>
+
+            <div class="stat-value">
+                {{ stats.avg_confidence }}%
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         DISEASE FREQUENCY
+    ================================================= -->
+
+    <div class="card">
+
+
+        <div class="card-header">
+
+            <div class="card-title">
+                Disease Frequency
+            </div>
+
+        </div>
+
+
+        {% if stats.disease_frequency %}
+
+
+            {% for disease in stats.disease_frequency %}
+
+            <div class="frequency-row">
+
+                <div class="frequency-name">
+
+                    Tomato — {{ disease.name }}
+
+                </div>
+
+                <div class="frequency-count">
+
+                    {{ disease.count }}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+
+        {% else %}
+
+            <div class="empty">
+
+                No disease scans yet.
+
+            </div>
+
+        {% endif %}
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         WEEKLY SCAN ACTIVITY
+    ================================================= -->
+
+    <div class="card">
+
+
+        <div class="card-header">
+
+            <div class="card-title">
+                Weekly Scan Activity
+            </div>
+
+            <div class="small-text">
+                Last 7 days
+            </div>
+
+        </div>
+
+
+        {% if stats.weekly_activity %}
+
+
+        <div class="chart">
+
+
+            {% for day in stats.weekly_activity %}
+
+            <div class="day">
+
+
+                <div class="bar total-bar"
+                     title="Total Scans: {{ day.total }}"
+                     style="height:
+                     {% if stats.max_weekly_scans > 0 %}
+                     {{ (day.total / stats.max_weekly_scans * 180)|int }}
+                     {% else %}
+                     2
+                     {% endif %}px;">
+                </div>
+
+
+                <div class="bar disease-bar"
+                     title="Diseases Found: {{ day.diseases }}"
+                     style="height:
+                     {% if stats.max_weekly_scans > 0 %}
+                     {{ (day.diseases / stats.max_weekly_scans * 180)|int }}
+                     {% else %}
+                     2
+                     {% endif %}px;">
+                </div>
+
+
+            </div>
+
+            {% endfor %}
+
+
+        </div>
+
+
+        <div class="chart-labels">
+
+            {% for day in stats.weekly_activity %}
+
+            <div class="day-label">
+
+                {{ day.day }}
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <div class="legend">
+
+            <div class="legend-item">
+
+                <span class="dot green-dot"></span>
+
+                Total Scans
+
+            </div>
+
+
+            <div class="legend-item">
+
+                <span class="dot red-dot"></span>
+
+                Diseases Found
+
+            </div>
+
+        </div>
+
+
+        {% else %}
+
+        <div class="empty">
+
+            No scan activity yet.
+
+        </div>
+
+        {% endif %}
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         RECENT DETECTIONS
+    ================================================= -->
+
+    <div class="card">
+
+
+        <div class="card-header">
+
+            <div class="card-title">
+                Recent Detections
+            </div>
+
+
+            <a href="/detect"
+               class="new-scan">
+
+                New Scan →
+
+            </a>
+
+        </div>
+
+
+
+        <div class="table-wrapper">
+
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            DISEASE
+                        </th>
+
+                        <th>
+                            CONFIDENCE
+                        </th>
+
+                        <th>
+                            RISK
+                        </th>
+
+                        <th>
+                            TIME
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                {% if stats.recent_scans %}
+
+
+                    {% for scan in stats.recent_scans %}
+
+
+                    <tr>
+
+
+                        <td>
+
+                            {{ scan.disease }}
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="confidence-container">
+
+                                <div class="confidence-bar">
+
+                                    <div
+                                        class="confidence-fill"
+                                        style="width:
+                                        {{ scan.confidence }}%;">
+                                    </div>
+
+                                </div>
+
+
+                                <strong>
+
+                                    {{ scan.confidence }}%
+
+                                </strong>
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+
+                            {% if scan.risk|lower == "high" %}
+
+                                <span class="risk risk-high">
+                                    HIGH
+                                </span>
+
+                            {% elif scan.risk|lower == "medium" %}
+
+                                <span class="risk risk-medium">
+                                    MEDIUM
+                                </span>
+
+                            {% elif scan.risk|lower == "low" %}
+
+                                <span class="risk risk-low">
+                                    LOW
+                                </span>
+
+                            {% elif scan.risk|lower == "none" %}
+
+                                <span class="risk risk-none">
+                                    NONE
+                                </span>
+
+                            {% else %}
+
+                                <span class="risk risk-unknown">
+                                    UNKNOWN
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ scan.time }}
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                {% else %}
+
+
+                    <tr>
+
+                        <td colspan="4"
+                            class="empty">
+
+                            No scans yet.
+
+                            <br><br>
+
+                            Upload a tomato leaf image
+                            to start detection.
+
+                        </td>
+
+                    </tr>
+
+
+                {% endif %}
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

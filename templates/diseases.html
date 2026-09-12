@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+{% block title %}Disease Library — CropGuard AI{% endblock %}
+
+{% block content %}
+<section class="diseases-page">
+    <div class="page-header">
+        <span class="section-tag">Knowledge Base</span>
+        <h1 class="page-title">Tomato Disease Library</h1>
+        <p class="page-sub">Comprehensive guide to every disease our AI can detect</p>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar glass-card">
+        <button class="filter-btn active" data-filter="all">All Diseases</button>
+        <button class="filter-btn" data-filter="high">High Risk</button>
+        <button class="filter-btn" data-filter="medium">Medium Risk</button>
+        <button class="filter-btn" data-filter="low">Low Risk</button>
+        <button class="filter-btn" data-filter="healthy">Healthy</button>
+    </div>
+
+    <!-- Disease Cards Grid -->
+    <div class="diseases-grid" id="diseasesGrid">
+
+        <!-- Septoria Leaf Spot -->
+        <div class="disease-card glass-card" data-risk="medium">
+            <div class="disease-card-header">
+                <div class="disease-thumb septoria-thumb">
+                    <span class="thumb-icon">🍃</span>
+                </div>
+                <div class="disease-title-wrap">
+                    <h3>Septoria Leaf Spot</h3>
+                    <span class="risk-badge risk-medium">Medium Risk</span>
+                </div>
+            </div>
+            <div class="disease-body">
+                <div class="disease-section">
+                    <h4>🔍 Symptoms</h4>
+                    <p>Small, circular spots (3–5 mm) with dark brown borders and light grey or tan centers. Tiny black dots (pycnidia) visible in the center. Yellowing and wilting of affected leaves.</p>
+                </div>
+                <div class="disease-section">
+                    <h4>🦠 Cause</h4>
+                    <p>Caused by the fungus <em>Septoria lycopersici</em>. Spreads through water splashing from infected soil, high humidity, and temperatures of 20–25°C.</p>
+                </div>
+                <div class="disease-section">
+                    <h4>💊 Treatment</h4>
+                    <ul>
+                        <li>Apply copper-based or chlorothalonil fungicides</li>
+                        <li>Remove and destroy infected leaves</li>
+                        <li>Avoid overhead watering</li>
+                        <li>Rotate crops annually</li>
+                    </ul>
+                </div>
+                <div class="disease-meta">
+                    <span class="meta-item">📅 Season: Wet & Humid</span>
+                    <span class="meta-item">🎯 Model Accuracy: 98%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Early Blight -->
+        <div class="disease-card glass-card" data-risk="high">
+            <div class="disease-card-header">
+                <div class="disease-thumb blight-thumb">
+                    <span class="thumb-icon">🍂</span>
+                </div>
+                <div class="disease-title-wrap">
+                    <h3>Early Blight</h3>
+                    <span class="risk-badge risk-high">High Risk</span>
+                </div>
+            </div>
+            <div class="disease-body">
+                <div class="disease-section">
+                    <h4>🔍 Symptoms</h4>
+                    <p>Dark brown to black lesions with distinctive concentric rings forming a "target" pattern. Yellowing tissue around lesions. Appears on older leaves first, moves upward.</p>
+                </div>
+                <div class="disease-section">
+                    <h4>🦠 Cause</h4>
+                    <p>Caused by <em>Alternaria solani</em> fungus. Favors warm temperatures (24–29°C) with high humidity. Spread by wind, rain splash, and infected plant debris.</p>
+                </div>
+                <div class="disease-section">
+                    <h4>💊 Treatment</h4>
+                    <ul>
+                        <li>Apply fungicides (mancozeb, chlorothalonil)</li>
+                        <li>Remove diseased foliage promptly</li>
+                        <li>Ensure proper plant spacing for air circulation</li>
+                        <li>Use disease-resistant tomato varieties</li>
+                    </ul>
+                </div>
+                <div class="disease-meta">
+                    <span class="meta-item">📅 Season: Warm & Wet</span>
+                    <span class="meta-item">🎯 Model Accuracy: 95%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Late Blight -->
+        <div class="disease-card glass-card" data-risk="high">
+            <div class="disease-card-header">
+                <div class="disease-thumb late-thumb">
+                    <span class="thumb-icon">🌑</span>
+                </div>
+                <div class="disease-title-wrap">
+                    <h3>Late Blight</h3>
+                    <span class="risk-badge risk-high">High Risk</span>
+                </div>
+            </div>
+            <div class="disease-body">
+                <div class="disease-section">
+                    <h4>🔍 Symptoms</h4>
+                    <p>Irregular, water-soaked lesions that turn brown/black. White cottony growth on leaf undersides. Rapid plant collapse in wet weather. Also infects stems and fruits.</p>
+                </div>
+                <div class="disease-section">
+                    <h4>🦠 Cause</h4>
+                    <p>Caused by <em>Phytophthora infestans</em> — an oomycete (water mold). Thrives in cool (10–20°C), moist conditions. Can devastate crops within days.</p>
+                </div>
+                <div class="disease-section">
+                    <h4>💊 Treatment</h4>
+                    <ul>
+                        <li>Apply metalaxyl or cymoxanil fungicides immediately</li>
+                        <li>Remove all affected plant material</li>
+                        <li>Avoid planting near potatoes</li>
+                        <li>Use certified disease-free seeds</li>
+                    </ul>
+                </div>
+                <div class="disease-meta">
+                    <span class="meta-item">📅 Season: Cool & Moist</span>
+                    <span class="meta-item">🎯 Model Accuracy: 93%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mosaic Virus -->
+        <div class="disease-card glass-card" data-risk="medium">
+            <div class="disease-card-header">
+                <div class="disease-thumb mosaic-thumb">
+                    <span class="thumb-icon">🌀</span>
+                </div>
+                <div class="disease-title-wrap">
+                    <h3>Tomato Mosaic Virus</h3>
+                    <span class="risk-badge risk-medium">Medium Risk</span>
+                </div>
+            </div>
+            <div class="disease-body">
+                <div class="disease-section">
+                    <h4>🔍 Symptoms</h4>
+                    <p>Mottled yellow-green pattern on leaves (mosaic pattern). Leaf curling, distortion, and stunted growth. Fruits may show blotchy ripening and reduced yield.</p>
+                </div>
+                <div class="disease-section">
+                    <h4>🦠 Cause</h4>
+                    <p>Caused by <em>Tomato mosaic virus (ToMV)</em>. Spreads through contact (hands, tools), infected seeds, and grafting. Highly persistent in soil and plant debris.</p>
+                </div>
+                <div class="disease-section">
+                    <h4>💊 Treatment</h4>
+                    <ul>
+                        <li>No chemical cure available — prevention is key</li>
+                        <li>Use virus-free certified seeds</li>
+                        <li>Disinfect tools with bleach solution</li>
+                        <li>Remove and destroy infected plants</li>
+                    </ul>
+                </div>
+                <div class="disease-meta">
+                    <span class="meta-item">📅 Season: Year-round</span>
+                    <span class="meta-item">🎯 Model Accuracy: 91%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Yellow Leaf Curl -->
+        <div class="disease-card glass-card" data-risk="high">
+            <div class="disease-card-header">
+                <div class="disease-thumb curl-thumb">
+                    <span class="thumb-icon">🌿</span>
+                </div>
+                <div class="disease-title-wrap">
+                    <h3>Yellow Leaf Curl Virus</h3>
+                    <span class="risk-badge risk-high">High Risk</span>
+                </div>
+            </div>
+            <div class="disease-body">
+                <div class="disease-section">
+                    <h4>🔍 Symptoms</h4>
+                    <p>Severe upward curling and yellowing of leaves. Stunted plant growth, flower drop, and very low fruit production. New growth appears crumpled and distorted.</p>
+                </div>
+                <div class="disease-section">
+                    <h4>🦠 Cause</h4>
+                    <p>Caused by <em>Tomato yellow leaf curl virus (TYLCV)</em>. Transmitted exclusively by the whitefly (<em>Bemisia tabaci</em>). Major problem in tropical and subtropical regions.</p>
+                </div>
+                <div class="disease-section">
+                    <h4>💊 Treatment</h4>
+                    <ul>
+                        <li>Control whitefly populations with insecticides</li>
+                        <li>Use reflective mulch to repel whiteflies</li>
+                        <li>Plant resistant tomato varieties</li>
+                        <li>Remove infected plants immediately</li>
+                    </ul>
+                </div>
+                <div class="disease-meta">
+                    <span class="meta-item">📅 Season: Hot & Dry</span>
+                    <span class="meta-item">🎯 Model Accuracy: 89%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Healthy -->
+        <div class="disease-card glass-card" data-risk="healthy">
+            <div class="disease-card-header">
+                <div class="disease-thumb healthy-thumb">
+                    <span class="thumb-icon">✅</span>
+                </div>
+                <div class="disease-title-wrap">
+                    <h3>Healthy Plant</h3>
+                    <span class="risk-badge risk-none">No Risk</span>
+                </div>
+            </div>
+            <div class="disease-body">
+                <div class="disease-section">
+                    <h4>🔍 Signs of Health</h4>
+                    <p>Deep green, uniform leaf color. No spots, lesions, or discoloration. Firm, upright stems. Normal leaf shape without curling or distortion.</p>
+                </div>
+                <div class="disease-section">
+                    <h4>🌱 Maintenance Tips</h4>
+                    <p>Regular watering, proper drainage, balanced NPK fertilization, adequate sunlight (6–8 hours), and weekly scouting for early disease signs.</p>
+                </div>
+                <div class="disease-section">
+                    <h4>💊 Prevention</h4>
+                    <ul>
+                        <li>Use disease-resistant seed varieties</li>
+                        <li>Practice crop rotation every season</li>
+                        <li>Maintain proper plant spacing</li>
+                        <li>Scan leaves regularly with CropGuard AI</li>
+                    </ul>
+                </div>
+                <div class="disease-meta">
+                    <span class="meta-item">📅 Year-round care</span>
+                    <span class="meta-item">🎯 Model Accuracy: 99%</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.disease-card').forEach(card => {
+            if (filter === 'all' || card.dataset.risk === filter) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
